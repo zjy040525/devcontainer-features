@@ -1,9 +1,13 @@
 name: Validate devcontainer-feature.json files
 
 on:
-  workflow_dispatch:
+  workflow_call:
   push:
+    branches:
+      - main
   pull_request:
+    branches:
+      - main
 
 jobs:
   validate:

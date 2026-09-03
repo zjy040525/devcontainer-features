@@ -4,7 +4,20 @@ on:
   workflow_dispatch:
 
 jobs:
+  ci:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/ci.yml
+
+  validate:
+    permissions:
+      contents: read
+    uses: ./.github/workflows/validate.yml
+
   release:
+    needs:
+      - ci
+      - validate
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -13,16 +26,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v7
-
-      - uses: pnpm/setup@v2
-        with:
-          cache: true
-
-      - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Lint
-        run: pnpm lint
 
       - name: Publish Features
         uses: devcontainers/action@v1
