@@ -1,6 +1,7 @@
 {
   "id": "claude-config-persist",
   "version": "1.0.0",
+  "name": "Claude Config Persist",
   "mounts": [
     {
       "source": "${localEnv:HOME}${localEnv:USERPROFILE}/.claude/",
