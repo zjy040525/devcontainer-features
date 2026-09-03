@@ -1,0 +1,9 @@
+.devcontainer/claude-config-persist/
+
+.DS_Store
+
+*.log
+
+.vscode/*
+!.vscode/extensions.json
+.idea/

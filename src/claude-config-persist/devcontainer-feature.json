@@ -1,0 +1,26 @@
+{
+  "id": "claude-config-persist",
+  "version": "1.0.0",
+  "mounts": [
+    {
+      "source": "${localEnv:HOME}${localEnv:USERPROFILE}/.claude/",
+      "target": "/var/lib/claude-config-persist/.claude",
+      "type": "bind"
+    },
+    {
+      "source": "claude-config-persist-plugins-${devcontainerId}",
+      "target": "/var/lib/claude-config-persist/.claude/plugins",
+      "type": "volume"
+    },
+    {
+      "source": "${localEnv:HOME}${localEnv:USERPROFILE}/.claude.json",
+      "target": "/var/lib/claude-config-persist/.claude.json",
+      "type": "bind"
+    }
+  ],
+  "onCreateCommand": "/usr/local/share/claude/onCreate.sh",
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils",
+    "ghcr.io/anthropics/devcontainer-features/claude-code"
+  ]
+}
