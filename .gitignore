@@ -1,4 +1,6 @@
 .devcontainer/claude-config-persist/
+.pnpm-store/
+node_modules/
 
 .DS_Store
 

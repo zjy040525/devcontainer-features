@@ -5,7 +5,6 @@ CONTAINER_DIR="/var/lib/claude-config-persist"
 STATE_DIR="${CONTAINER_DIR}/.claude"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-# 去掉 local 关键字
 owner="${_REMOTE_USER:-root}"
 if ! id "$owner" >/dev/null 2>&1; then
     owner="root"

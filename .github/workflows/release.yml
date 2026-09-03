@@ -1,25 +1,36 @@
-name: Release
+name: Release Dev Container Features
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  release:
     runs-on: ubuntu-latest
     permissions:
+      contents: write
+      pull-requests: write
       packages: write
-      contents: read
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/setup@v2
+        with:
+          cache: true
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
 
       - name: Publish Features
         uses: devcontainers/action@v1
         with:
           publish-features: true
           base-path-to-features: ./src
-          generate-docs: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

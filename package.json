@@ -1,0 +1,26 @@
+{
+  "name": "devcontainer-features",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "lint": "eslint",
+    "lint:fix": "eslint --fix",
+    "setup": "node ./scripts/setup.ts",
+    "postinstall": "pnpm run setup"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": ">=11.25.0 <12.0.0",
+      "onFail": "download"
+    }
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^9.4.1",
+    "@types/node": "^26.4.1",
+    "eslint": "^10.9.1",
+    "eslint-plugin-format": "^2.0.1",
+    "typescript": "^6.0.3"
+  }
+}
