@@ -3,19 +3,12 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@12.3.4",
+  "packageManager": "pnpm@11.17.0",
   "scripts": {
     "lint": "eslint",
     "lint:fix": "eslint --fix",
     "setup": "node ./scripts/setup.ts",
     "postinstall": "pnpm run setup"
-  },
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": ">=12.0.0 <13.0.0",
-      "onFail": "download"
-    }
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.4.1",
