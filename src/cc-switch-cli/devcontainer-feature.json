@@ -1,0 +1,16 @@
+{
+  "id": "cc-switch-cli",
+  "version": "1.0.0",
+  "name": "CC Switch CLI",
+  "mounts": [
+    {
+      "source": "${localEnv:HOME}${localEnv:USERPROFILE}/.cc-switch/",
+      "target": "/var/lib/cc-switch-cli/.cc-switch",
+      "type": "bind"
+    }
+  ],
+  "onCreateCommand": "/usr/local/share/cc-switch-cli/onCreate.sh",
+  "installsAfter": [
+    "ghcr.io/devcontainers/features/common-utils"
+  ]
+}

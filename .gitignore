@@ -1,4 +1,4 @@
-.devcontainer/claude-config-persist/
+.devcontainer/*/
 .pnpm-store/
 node_modules/
 
