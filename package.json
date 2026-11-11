@@ -3,17 +3,20 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@12.3.4",
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "12.19.0",
+      "onFail": "download"
+    }
+  },
   "scripts": {
     "lint": "eslint",
-    "lint:fix": "eslint --fix",
-    "setup": "node ./scripts/setup.ts",
-    "postinstall": "pnpm run setup"
+    "lint:fix": "eslint --fix"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^9.5.1",
-    "@types/node": "^26.4.1",
-    "eslint": "^10.10.0",
+    "eslint": "^10.14.0",
     "eslint-plugin-format": "^2.0.1",
     "typescript": "^6.0.3"
   }

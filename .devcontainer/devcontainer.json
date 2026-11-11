@@ -7,7 +7,7 @@
 
   // Features to add to the dev container. More info: https://containers.dev/features.
   "features": {
-    // Note: Run ./setup.sh first to set up the local feature hard links.
+    // Note: Run ./scripts/setup.sh first to set up the local feature hard links.
     "./claude-config-persist": {
     },
     "ghcr.io/anthropics/devcontainer-features/claude-code:1": {
