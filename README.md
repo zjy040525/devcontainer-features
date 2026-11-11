@@ -99,7 +99,7 @@ pnpm install
 Prepare the local Features used by this repository's Dev Container:
 
 ```sh
-bash scripts/setup.sh
+./scripts/setup.sh
 ```
 
 The script creates hard links from every directory under `src/` to `.devcontainer/<feature>` and is safe to re-run after adding or renaming a Feature. The generated directories are ignored by Git.
