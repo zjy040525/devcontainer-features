@@ -42,15 +42,67 @@ touch "$HOME/.claude.json"
 
 The mounted files can contain credentials and other sensitive data. Use this Feature only with trusted Dev Container configurations.
 
+### CC Switch CLI
+
+`cc-switch-cli` installs the [CC Switch CLI](https://github.com/SaladDay/cc-switch-cli) and keeps its configuration across Dev Container rebuilds. The CLI is installed from the upstream GitHub release and uses the host `~/.cc-switch/` directory.
+
+Add the Feature to `.devcontainer/devcontainer.json`:
+
+```json
+{
+  "features": {
+    "ghcr.io/zjy040525/devcontainer-features/cc-switch-cli:1": {}
+  }
+}
+```
+
+Use `:1` to track the latest compatible `1.x` release, or use a full version such as `:1.0.0` for reproducible builds.
+
+#### Persisted State
+
+| State           | Storage                        |
+| --------------- | ------------------------------ |
+| `~/.cc-switch/` | Host `~/.cc-switch/` directory |
+
+The host `~/.cc-switch/` directory must exist before the container is created:
+
+```sh
+mkdir -p "$HOME/.cc-switch"
+```
+
+The Feature installs the real binary to `/usr/local/lib/cc-switch-cli/cc-switch` and a wrapper to `/usr/local/bin/cc-switch`. Running `cc-switch` through `PATH` uses the wrapper; invoking the real binary directly bypasses it.
+
+#### Symlink Handling
+
+cc-switch refuses to start when its config directory is a symlink, and it replaces `~/.claude.json` with a regular file when it rewrites that file atomically. The wrapper compensates:
+
+- `~/.cc-switch` (or `CC_SWITCH_CONFIG_DIR`) is resolved to its absolute target before the CLI starts.
+- If `~/.claude.json` was a symlink and cc-switch replaced it with a regular file, the new content is copied back to the link target and the symlink is recreated after the command exits.
+
+This makes the Feature work together with `claude-config-persist`: writes to `~/.claude/` pass through the directory symlink, and the wrapper keeps `~/.claude.json` linked to the persisted file.
+
+#### Notes
+
+- `cc-switch` stores its data in a SQLite database (`~/.cc-switch/cc-switch.db`). The host application and the container CLI share the same file, so avoid concurrent heavy writes from both sides.
+- The CLI is installed from the upstream `latest` release and is not pinned to a specific version.
+- If the wrapper is killed before it can restore the `~/.claude.json` link, the next container creation recreates the link; content written to the temporary regular file in the meantime may be lost.
+- The mounted configuration can contain credentials and other sensitive data. Use this Feature only with trusted Dev Container configurations.
+
 ## Development
 
-Install dependencies and prepare the local Feature used by this repository's Dev Container:
+Install dependencies:
 
 ```sh
 pnpm install
 ```
 
-The `postinstall` script creates hard links from `src/claude-config-persist` to `.devcontainer/claude-config-persist`. Run `pnpm setup` to recreate them manually.
+Prepare the local Features used by this repository's Dev Container:
+
+```sh
+bash scripts/setup.sh
+```
+
+The script creates hard links from every directory under `src/` to `.devcontainer/<feature>` and is safe to re-run after adding or renaming a Feature. The generated directories are ignored by Git.
 
 Run repository checks with:
 

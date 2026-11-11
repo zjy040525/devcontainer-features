@@ -10,6 +10,8 @@
     // Note: Run ./scripts/setup.sh first to set up the local feature hard links.
     "./claude-config-persist": {
     },
+    "./cc-switch-cli": {
+    },
     "ghcr.io/anthropics/devcontainer-features/claude-code:1": {
     }
   },
